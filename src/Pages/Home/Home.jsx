@@ -1,6 +1,7 @@
 import React from "react";
 import "./Home.css";
 import hero from "../../assets/hero.png";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -16,10 +17,12 @@ const Home = () => {
             simple.
           </p>
           <div className="btn-container">
-            <button className="btn btn-primary">Join Now</button>
-            <button className="btn secondary-btn">
+            <Link to="/signup" className="btn btn-primary">
+              Join Now
+            </Link>
+            <Link to="/login" className="btn secondary-btn">
               Already have an account?
-            </button>
+            </Link>
           </div>
         </section>
         <section className="section-hero">
