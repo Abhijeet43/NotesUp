@@ -9,15 +9,15 @@
   text-align: center;
 }
 
-.section-title {
+.section-heading {
   font-size: var(--font-size-3);
   position: relative;
 }
 
-.section-title::before {
+.section-heading::before {
   content: "";
   position: absolute;
-  width: 12rem;
+  width: 7rem;
   height: 0.4rem;
   bottom: -1rem;
   border-radius: 0.25rem;
