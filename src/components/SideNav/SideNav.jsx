@@ -43,7 +43,7 @@ const SideNav = () => {
 
               <NavLink to="/:tagName" className="side-nav-item tag-label">
                 <div className="side-nav-icon">
-                  <i class="fa-solid fa-tag"></i>
+                  <i className="fa-solid fa-tag"></i>
                 </div>
                 <div className="side-nav-text">Work</div>
                 <div>
@@ -64,7 +64,7 @@ const SideNav = () => {
 
           <NavLink to="/archive" className="side-nav-item">
             <div className="side-nav-icon">
-              <i class="fa-solid fa-box-archive"></i>
+              <i className="fa-solid fa-box-archive"></i>
             </div>
             <div className="side-nav-text">Archive</div>
           </NavLink>
@@ -78,7 +78,7 @@ const SideNav = () => {
 
           <NavLink to="/logout" className="side-nav-item">
             <div className="side-nav-icon">
-              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              <i className="fa-solid fa-arrow-right-from-bracket"></i>
             </div>
             <div className="side-nav-text">Logout</div>
           </NavLink>

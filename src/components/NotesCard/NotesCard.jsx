@@ -7,7 +7,7 @@ const NotesCard = () => {
       <div className="notes-card-header">
         <h3 className="notes-card-title">Card Title</h3>
         <button title="Pin" className="notes-card-action">
-          <i class="fa-solid fa-thumbtack"></i>
+          <i className="fa-solid fa-thumbtack"></i>
         </button>
       </div>
       <div className="notes-card-text">
@@ -24,10 +24,10 @@ const NotesCard = () => {
             <i className="fa-solid fa-trash"></i>
           </button>
           <button title="Edit" className="notes-card-action">
-            <i class="fa-solid fa-pen-to-square"></i>
+            <i className="fa-solid fa-pen-to-square"></i>
           </button>
           <button title="Archive" className="notes-card-action">
-            <i class="fa-solid fa-box-archive"></i>
+            <i className="fa-solid fa-box-archive"></i>
           </button>
         </div>
       </div>

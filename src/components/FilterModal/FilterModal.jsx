@@ -8,7 +8,7 @@ const FilterModal = ({ showFilterModal, setShowFilterModal }) => {
         className="btn btn-primary no-max-width"
         onClick={() => setShowFilterModal((prevVal) => !prevVal)}
       >
-        <i class="fa-solid fa-arrow-up-wide-short margin-right"></i>
+        <i className="fa-solid fa-arrow-up-wide-short margin-right"></i>
         Filters
       </button>
       <div className={`filter-menu ${showFilterModal ? "filter-active" : ""}`}>
