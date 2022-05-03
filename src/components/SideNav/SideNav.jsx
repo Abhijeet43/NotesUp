@@ -14,7 +14,7 @@ const SideNav = () => {
           </h1>
         </div>
         <div className="side-nav-items">
-          <NavLink to="/notes" className="side-nav-item active">
+          <NavLink to="/notes" className="side-nav-item">
             <div className="side-nav-icon">
               <i className="fa-solid fa-lightbulb"></i>
             </div>
