@@ -27,6 +27,7 @@
 }
 
 .side-nav-item {
+  width: 100%;
   padding: 1rem;
   margin: 1rem;
   border-radius: 30px;

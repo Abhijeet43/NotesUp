@@ -1,10 +1,22 @@
 import React, { useState } from "react";
 import { LabelModal } from "../index";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/";
+import { toast } from "react-toastify";
 import "./SideNav.css";
 
 const SideNav = () => {
   const [showLabelModal, setShowLabelModal] = useState(false);
+
+  const { authDispatch } = useAuth();
+
+  const logoutHandler = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    authDispatch({ type: "LOGOUT" });
+    toast.success("Logout Successful");
+  };
+
   return (
     <>
       <aside className="side-nav">
@@ -76,12 +88,15 @@ const SideNav = () => {
             <div className="side-nav-text">Trash</div>
           </NavLink>
 
-          <NavLink to="/logout" className="side-nav-item">
+          <button
+            onClick={logoutHandler}
+            className="side-nav-item no-max-width"
+          >
             <div className="side-nav-icon">
               <i className="fa-solid fa-arrow-right-from-bracket"></i>
             </div>
             <div className="side-nav-text">Logout</div>
-          </NavLink>
+          </button>
         </div>
       </aside>
       <LabelModal
