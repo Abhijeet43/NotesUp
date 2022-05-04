@@ -1,0 +1,62 @@
+/* SIDE NAV */
+
+.side-nav {
+  position: sticky;
+  top: 0;
+  height: 100%;
+  flex-basis: 20%;
+  background: var(--secondary-color);
+}
+
+.side-nav-brand {
+  padding: 2rem;
+  font-size: var(--font-size-4);
+}
+
+.side-nav-items {
+  padding: 1rem;
+}
+
+.tag-labels {
+  margin-left: 3rem;
+}
+
+.tag-menu-icon {
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+.side-nav-item {
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 30px;
+  display: flex;
+  color: var(--primary-color);
+  font-size: var(--font-size-4);
+  cursor: pointer;
+}
+
+.tag-label {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  font-size: var(--font-size-5);
+}
+
+.tag-label .side-nav-icon {
+  margin: 0;
+}
+
+.tag-label .side-nav-text {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.side-nav-icon {
+  margin-right: 1.5rem;
+}
+
+.side-nav-item:hover,
+.active {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+}
