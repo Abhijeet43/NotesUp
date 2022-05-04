@@ -11,6 +11,7 @@ import "./Notes.css";
 const Notes = () => {
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [editMode, setEditMode] = useState(null);
   return (
     <main className="main-section">
       <SideNav />
@@ -41,17 +42,14 @@ const Notes = () => {
             <NotesModal
               showCreateModal={showCreateModal}
               setShowCreateModal={setShowCreateModal}
+              editMode={editMode}
+              setEditMode={setEditMode}
             />
           </div>
         </section>
 
         <hr />
         <section className="cards-container">
-          <NotesCard />
-          <NotesCard />
-          <NotesCard />
-          <NotesCard />
-          <NotesCard />
           <NotesCard />
         </section>
       </section>

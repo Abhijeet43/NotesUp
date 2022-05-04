@@ -14,7 +14,7 @@ const modules = {
   ],
 };
 
-const TextEditor = () => {
+const TextEditor = ({ newNote, setNewNote }) => {
   return (
     <ReactQuill
       theme="snow"
@@ -22,6 +22,8 @@ const TextEditor = () => {
       modules={modules}
       className="note-text"
       placeholder="Add your notes here..."
+      value={newNote.text}
+      onChange={(value) => setNewNote((prev) => ({ ...prev, text: value }))}
     />
   );
 };
