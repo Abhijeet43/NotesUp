@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import "../authentication.css";
+import { toast } from "react-toastify";
 import { useToggle } from "../../../hooks/useToggle";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../../../context/";
+import { loginService } from "../../../services/";
 
 const Login = () => {
   const [showPass, setShowPass] = useToggle(false);
+
+  const { authDispatch } = useAuth();
+
+  const navigate = useNavigate();
+
+  const location = useLocation();
 
   const [user, setUser] = useState({
     email: "",
@@ -31,6 +40,28 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    const response = await loginService(user);
+    try {
+      if (response.status === 200) {
+        localStorage.setItem("token", response.data.encodedToken);
+        localStorage.setItem("user", JSON.stringify(response.data.foundUser));
+        authDispatch({
+          type: "LOGIN",
+          payload: {
+            token: response.data.encodedToken,
+            user: response.data.foundUser,
+          },
+        });
+        navigate(location?.state?.from?.pathname || "/notes", {
+          replace: true,
+        });
+        toast.success(`Welcome Back ${response.data.foundUser.firstName}`);
+      } else {
+        throw new Error("Something went wrong! Please try again later");
+      }
+    } catch (error) {
+      toast.error(error.response.data.errors[0]);
+    }
   };
 
   return (
@@ -50,7 +81,7 @@ const Login = () => {
           </div>
           <div className="form-group">
             <input
-              type="password"
+              type={showPass ? "text" : "password"}
               name="password"
               placeholder="Password"
               onChange={changeHandler}

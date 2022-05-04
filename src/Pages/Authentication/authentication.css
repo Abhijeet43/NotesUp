@@ -121,11 +121,3 @@ form {
   color: var(--primary-color);
   cursor: pointer;
 }
-
-/* MEDIA QUERIES */
-
-@media (max-width: 540px) {
-  .section-img {
-    display: none;
-  }
-}
