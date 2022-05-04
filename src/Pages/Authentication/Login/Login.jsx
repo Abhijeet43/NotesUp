@@ -40,27 +40,31 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const response = await loginService(user);
-    try {
-      if (response.status === 200) {
-        localStorage.setItem("token", response.data.encodedToken);
-        localStorage.setItem("user", JSON.stringify(response.data.foundUser));
-        authDispatch({
-          type: "LOGIN",
-          payload: {
-            token: response.data.encodedToken,
-            user: response.data.foundUser,
-          },
-        });
-        navigate(location?.state?.from?.pathname || "/notes", {
-          replace: true,
-        });
-        toast.success(`Welcome Back ${response.data.foundUser.firstName}`);
-      } else {
-        throw new Error("Something went wrong! Please try again later");
+    if (user.email !== "" && user.password !== "") {
+      try {
+        const response = await loginService(user);
+        if (response.status === 200) {
+          localStorage.setItem("token", response.data.encodedToken);
+          localStorage.setItem("user", JSON.stringify(response.data.foundUser));
+          authDispatch({
+            type: "LOGIN",
+            payload: {
+              token: response.data.encodedToken,
+              user: response.data.foundUser,
+            },
+          });
+          navigate(location?.state?.from?.pathname || "/notes", {
+            replace: true,
+          });
+          toast.success(`Welcome Back ${response.data.foundUser.firstName}`);
+        } else {
+          throw new Error("Something went wrong! Please try again later");
+        }
+      } catch (error) {
+        toast.error(error.response.data.errors[0]);
       }
-    } catch (error) {
-      toast.error(error.response.data.errors[0]);
+    } else {
+      toast.warning("Fields cannot be empty");
     }
   };
 
