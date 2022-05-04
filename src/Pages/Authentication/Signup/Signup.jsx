@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import "../authentication.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useToggle } from "../../../hooks/useToggle";
-import { Header } from "../../../components/";
+import { toast } from "react-toastify";
+import { signUpService } from "../../../services/";
+import { useAuth } from "../../../context/";
 
 const Signup = () => {
   const [showPass, setShowPass] = useToggle(false);
   const [showConfirmPass, setShowConfirmPass] = useToggle(false);
+
+  const { authDispatch } = useAuth();
+
+  const navigate = useNavigate();
 
   const [user, setUser] = useState({
     firstName: "",
@@ -24,8 +30,49 @@ const Signup = () => {
     }));
   };
 
+  const checkInputs = () => {
+    return (
+      user.firstName !== "" &&
+      user.lastName !== "" &&
+      user.email !== "" &&
+      user.password !== "" &&
+      user.confirmPassword !== ""
+    );
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
+    try {
+      if (checkInputs()) {
+        if (user.password !== user.confirmPassword) {
+          toast.error("Password and Confirm Password donot match");
+          return;
+        }
+        const response = await signUpService(user);
+        if (response.status === 201) {
+          authDispatch({
+            type: "SIGNUP",
+            payload: {
+              token: response.data.encodedToken,
+              user: response.data.createdUser,
+            },
+          });
+          localStorage.setItem("token", response.data.encodedToken);
+          localStorage.setItem(
+            "user",
+            JSON.stringify(response.data.createdUser)
+          );
+          toast.success("Signup Success!!");
+          navigate("/notes");
+        } else {
+          throw new Error("Something went wrong! Please try again later");
+        }
+      } else {
+        toast.warning("Fields Cannot Be Empty");
+      }
+    } catch (error) {
+      toast.error(error.response.data.errors[0]);
+    }
   };
 
   return (
