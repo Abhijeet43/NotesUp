@@ -1,7 +1,11 @@
 import React from "react";
 import "./Header.css";
+import { useAuth } from "../../context/";
 
 const Header = () => {
+  const {
+    authState: { user },
+  } = useAuth();
   return (
     <header className="section-header">
       <div className="search-box">
@@ -14,7 +18,7 @@ const Header = () => {
           placeholder="Search Notes..."
         />
       </div>
-      <button className="btn btn-primary">Logout</button>
+      <div className="user-greet">Hi, {user.firstName}</div>
     </header>
   );
 };

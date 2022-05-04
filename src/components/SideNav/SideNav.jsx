@@ -10,6 +10,8 @@ const SideNav = () => {
 
   const { authDispatch } = useAuth();
 
+  const navigate = useNavigate();
+
   const logoutHandler = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -21,7 +23,7 @@ const SideNav = () => {
     <>
       <aside className="side-nav">
         <div className="side-nav-brand">
-          <h1>
+          <h1 onClick={() => navigate("/")}>
             <span className="primary">Notes</span>Up
           </h1>
         </div>

@@ -17,9 +17,6 @@ const Home = () => {
             simple.
           </p>
           <div className="btn-container">
-            <Link to="/notes" className="btn btn-primary">
-              See Notes
-            </Link>
             <Link to="/signup" className="btn btn-primary">
               Join Now
             </Link>
