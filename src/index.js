@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { makeServer } from "./server";
-import { AuthProvider } from "./context/";
+import { AuthProvider, NotesProvider } from "./context/";
 
 // Call make Server
 makeServer();
@@ -11,7 +11,9 @@ makeServer();
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-      <App />
+      <NotesProvider>
+        <App />
+      </NotesProvider>
     </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
