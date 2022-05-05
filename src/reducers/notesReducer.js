@@ -1,6 +1,6 @@
 const notesReducer = (state, action) => {
   switch (action.type) {
-    case "GET_NOTES":
+    case "LOAD_NOTES":
       return {
         ...state,
         notes: action.payload,
@@ -14,6 +14,11 @@ const notesReducer = (state, action) => {
       return {
         ...state,
         notes: action.payload,
+      };
+    case "CLEAR_NOTES":
+      return {
+        ...state,
+        notes: [],
       };
     default:
       return state;

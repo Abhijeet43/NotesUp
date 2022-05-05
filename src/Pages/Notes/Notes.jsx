@@ -7,11 +7,22 @@ import {
   Header,
 } from "../../components/";
 import "./Notes.css";
+import { useNotes, useAuth } from "../../context";
 
 const Notes = () => {
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [editMode, setEditMode] = useState(null);
+
+  const {
+    authState: { token },
+  } = useAuth();
+
+  const {
+    notesState: { notes },
+    notesDispatch,
+  } = useNotes();
+
   return (
     <main className="main-section">
       <SideNav />
@@ -50,7 +61,16 @@ const Notes = () => {
 
         <hr />
         <section className="cards-container">
-          <NotesCard />
+          {notes.map((note) => {
+            return (
+              <NotesCard
+                key={note._id}
+                note={note}
+                setEditMode={setEditMode}
+                setShowCreateModal={setShowCreateModal}
+              />
+            );
+          })}
         </section>
       </section>
     </main>

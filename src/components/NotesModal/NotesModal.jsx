@@ -26,7 +26,6 @@ const NotesModal = ({
       priority: "",
       color: "",
       isPinned: false,
-      tags: [],
       date: formatDate(),
     }
   );

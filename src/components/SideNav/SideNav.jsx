@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { LabelModal } from "../index";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/";
+import { useAuth, useNotes } from "../../context/";
 import { toast } from "react-toastify";
 import "./SideNav.css";
 
@@ -10,12 +10,18 @@ const SideNav = () => {
 
   const { authDispatch } = useAuth();
 
+  const {
+    notesState: { notes },
+    notesDispatch,
+  } = useNotes();
+
   const navigate = useNavigate();
 
   const logoutHandler = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     authDispatch({ type: "LOGOUT" });
+    notesDispatch({ type: "CLEAR_NOTES" });
     toast.success("Logout Successful");
   };
 
