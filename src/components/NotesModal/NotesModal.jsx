@@ -3,32 +3,33 @@ import { formatDate } from "../../backend/utils/authUtils";
 import { TextEditor } from "../index";
 import { toast } from "react-toastify";
 import { useNotes, useAuth } from "../../context/";
-import { addNoteHandler } from "../../functions/";
+import { addNoteHandler, editNoteHandler } from "../../functions/";
 import "./NotesModal.css";
 
 const NotesModal = ({
   showCreateModal,
   setShowCreateModal,
-  editMode,
-  setEditMode,
+  editData,
+  noteData,
 }) => {
   const { notesDispatch } = useNotes();
+
+  const data = editData
+    ? noteData
+    : {
+        title: "",
+        text: "",
+        label: "",
+        color: "Default",
+        priority: "Low",
+        isPinned: false,
+      };
+
+  const [newNote, setNewNote] = useState(data);
 
   const {
     authState: { token },
   } = useAuth();
-
-  const [newNote, setNewNote] = useState(
-    editMode ?? {
-      title: "",
-      text: "",
-      label: "",
-      priority: "",
-      color: "",
-      isPinned: false,
-      date: formatDate(),
-    }
-  );
 
   const inputHandler = (e) => {
     const { name, value } = e.target;
@@ -48,16 +49,18 @@ const NotesModal = ({
   };
 
   const createNoteHandler = () => {
+    const currentDate = formatDate();
+    const note = { ...newNote, date: currentDate };
     if (checkInputs()) {
-      addNoteHandler(token, newNote, notesDispatch);
+      editData
+        ? editNoteHandler(token, note, notesDispatch)
+        : addNoteHandler(token, note, notesDispatch);
       setShowCreateModal(false);
     }
   };
 
   return (
-    <section
-      className={`note-editor-wrapper ${showCreateModal ? "modal-active" : ""}`}
-    >
+    <section className="note-editor-wrapper  modal-active">
       <section className="note-editor">
         <div className="note-editor-header">
           <h2 className="note-editor-title">Create Note</h2>
