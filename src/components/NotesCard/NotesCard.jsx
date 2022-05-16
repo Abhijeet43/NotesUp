@@ -77,7 +77,7 @@ const NotesCard = ({ note }) => {
   };
   return (
     <>
-      <div className="notes-card">
+      <div className={`notes-card ${note.color.toLowerCase()}`}>
         <div className="notes-card-header">
           <h3 className="notes-card-title">{note.title}</h3>
           <button title="Pin" className="notes-card-action">

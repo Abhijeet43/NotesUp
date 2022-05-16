@@ -6,12 +6,7 @@ import { useNotes, useAuth } from "../../context/";
 import { addNoteHandler, editNoteHandler } from "../../functions/";
 import "./NotesModal.css";
 
-const NotesModal = ({
-  showCreateModal,
-  setShowCreateModal,
-  editData,
-  noteData,
-}) => {
+const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
   const { notesDispatch } = useNotes();
 
   const data = editData
@@ -20,7 +15,7 @@ const NotesModal = ({
         title: "",
         text: "",
         label: "",
-        color: "Default",
+        color: "White",
         priority: "Default",
         isPinned: false,
       };
@@ -77,7 +72,11 @@ const NotesModal = ({
             value={newNote.title}
             onChange={inputHandler}
           />
-          <TextEditor newNote={newNote} setNewNote={setNewNote} />
+          <TextEditor
+            className={newNote.color}
+            newNote={newNote}
+            setNewNote={setNewNote}
+          />
         </div>
         <div className="note-editor-options">
           <div className="note-editor-options-element">
