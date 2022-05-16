@@ -15,11 +15,21 @@
 
 .notes-card-title {
   font-size: var(--font-size-4);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .notes-card-text {
   padding: 1rem 0;
-  font-size: var(--font-size-5);
+  height: 200px;
+  font-size: var(--font-size-6);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 10;
+  overflow: hidden;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .notes-card-footer {

@@ -81,7 +81,7 @@ const NotesCard = ({ note }) => {
         <div className="notes-card-header">
           <h3 className="notes-card-title">{note.title}</h3>
           <button title="Pin" className="notes-card-action">
-            <i className="fa-so lid fa-thumbtack"></i>
+            <i className="fa-solid fa-thumbtack"></i>
           </button>
         </div>
         <div className="notes-card-text">{ReactHtmlParser(note.text)}</div>
