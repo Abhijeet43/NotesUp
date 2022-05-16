@@ -130,7 +130,7 @@ const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
         </div>
         <div className="note-editor-footer">
           <button onClick={createNoteHandler} className="btn btn-primary">
-            Create Note
+            {editData ? "Update Note" : "Create Note"}
           </button>
         </div>
       </section>
