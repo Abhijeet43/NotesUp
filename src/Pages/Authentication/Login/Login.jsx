@@ -5,7 +5,7 @@ import { useToggle } from "../../../hooks/useToggle";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth, useNotes } from "../../../context/";
 import { loginService } from "../../../services/";
-import { getNotesHandler } from "../../../functions/";
+import { getNotesHandler, getArchivesHandler } from "../../../functions/";
 
 const Login = () => {
   const [showPass, setShowPass] = useToggle(false);
@@ -50,6 +50,7 @@ const Login = () => {
           localStorage.setItem("token", response.data.encodedToken);
           localStorage.setItem("user", JSON.stringify(response.data.foundUser));
           getNotesHandler(response.data.encodedToken, notesDispatch);
+          getArchivesHandler(response.data.encodedToken);
           authDispatch({
             type: "LOGIN",
             payload: {
