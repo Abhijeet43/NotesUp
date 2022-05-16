@@ -12,7 +12,7 @@ const deleteNoteHandler = async (token, note, notesDispatch, trashDispatch) => {
       throw new Error("Sorry! Something Went Wrong...Try Again Later");
     }
   } catch (error) {
-    toast.error(error.response.data.errors[0]);
+    toast.error(error.response?.data.errors[0]);
   }
 };
 

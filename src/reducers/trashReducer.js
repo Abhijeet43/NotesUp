@@ -6,6 +6,8 @@ const trashReducer = (state, action) => {
       return { ...state, trash: action.payload };
     case "REMOVE_FROM_TRASH":
       return { ...state, trash: action.payload };
+    case "CLEAR_TRASH":
+      return { ...state, trash: [] };
     default:
       return state;
   }

@@ -6,6 +6,8 @@ const archiveReducer = (state, action) => {
       return { ...state, archives: action.payload };
     case "REMOVE_FROM_ARCHIVES":
       return { ...state, archives: action.payload };
+    case "CLEAR_ARCHIVES":
+      return { ...state, archives: [] };
     default:
       return state;
   }

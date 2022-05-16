@@ -10,7 +10,7 @@ const getNotesHandler = async (token, notesDispatch) => {
       throw new Error("Sorry!! Something Went Wrong...Try again later");
     }
   } catch (error) {
-    toast.error(error.response.data.errors[0]);
+    toast.error(error.response?.data.errors[0]);
   }
 };
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { LabelModal } from "../index";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth, useNotes } from "../../context/";
+import { useAuth, useNotes, useArchive, useTrash } from "../../context/";
 import { toast } from "react-toastify";
 import "./SideNav.css";
 
@@ -10,10 +10,11 @@ const SideNav = () => {
 
   const { authDispatch } = useAuth();
 
-  const {
-    notesState: { notes },
-    notesDispatch,
-  } = useNotes();
+  const { archiveDispatch } = useArchive();
+
+  const { trashDispatch } = useTrash();
+
+  const { notesDispatch } = useNotes();
 
   const navigate = useNavigate();
 
@@ -22,6 +23,8 @@ const SideNav = () => {
     localStorage.removeItem("user");
     authDispatch({ type: "LOGOUT" });
     notesDispatch({ type: "CLEAR_NOTES" });
+    archiveDispatch({ type: "CLEAR_ARCHIVES" });
+    trashDispatch({ type: "CLEAR_TRASH" });
     toast.success("Logout Successful");
   };
 
