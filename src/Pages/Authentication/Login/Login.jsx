@@ -3,13 +3,24 @@ import "../authentication.css";
 import { toast } from "react-toastify";
 import { useToggle } from "../../../hooks/useToggle";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "../../../context/";
+import { useAuth, useNotes, useArchive, useTrash } from "../../../context/";
 import { loginService } from "../../../services/";
+import {
+  getNotesHandler,
+  getArchivesHandler,
+  getTrashHandler,
+} from "../../../functions/";
 
 const Login = () => {
   const [showPass, setShowPass] = useToggle(false);
 
   const { authDispatch } = useAuth();
+
+  const { notesDispatch } = useNotes();
+
+  const { archiveDispatch } = useArchive();
+
+  const { trashDispatch } = useTrash();
 
   const navigate = useNavigate();
 
@@ -46,6 +57,9 @@ const Login = () => {
         if (response.status === 200) {
           localStorage.setItem("token", response.data.encodedToken);
           localStorage.setItem("user", JSON.stringify(response.data.foundUser));
+          getNotesHandler(response.data.encodedToken, notesDispatch);
+          getArchivesHandler(response.data.encodedToken, archiveDispatch);
+          getTrashHandler(response.data.encodedToken, trashDispatch);
           authDispatch({
             type: "LOGIN",
             payload: {

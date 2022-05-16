@@ -14,14 +14,16 @@ const modules = {
   ],
 };
 
-const TextEditor = () => {
+const TextEditor = ({ newNote, setNewNote }) => {
   return (
     <ReactQuill
       theme="snow"
       formats={formats}
       modules={modules}
-      className="note-text"
+      className={`note-text ${newNote.color}`}
       placeholder="Add your notes here..."
+      value={newNote.text}
+      onChange={(value) => setNewNote((prev) => ({ ...prev, text: value }))}
     />
   );
 };

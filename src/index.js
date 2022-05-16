@@ -3,7 +3,12 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { makeServer } from "./server";
-import { AuthProvider } from "./context/";
+import {
+  AuthProvider,
+  NotesProvider,
+  ArchiveProvider,
+  TrashProvider,
+} from "./context/";
 
 // Call make Server
 makeServer();
@@ -11,7 +16,13 @@ makeServer();
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-      <App />
+      <NotesProvider>
+        <TrashProvider>
+          <ArchiveProvider>
+            <App />
+          </ArchiveProvider>
+        </TrashProvider>
+      </NotesProvider>
     </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")

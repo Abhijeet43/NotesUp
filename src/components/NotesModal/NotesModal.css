@@ -57,3 +57,29 @@ option {
   display: flex;
   justify-content: space-between;
 }
+
+/* MODAL COLORS */
+
+.note-text.white > .ql-snow {
+  background-color: #f4f4f4;
+}
+
+.note-text.green > .ql-snow {
+  background-color: #93c572;
+}
+
+.note-text.red > .ql-snow {
+  background-color: #ef5354;
+}
+
+.note-text.yellow > .ql-snow {
+  background-color: #edc126;
+}
+
+.note-text.blue > .ql-snow {
+  background-color: #1b98f5;
+}
+
+.note-text.orange > .ql-snow {
+  background-color: #ed9121;
+}

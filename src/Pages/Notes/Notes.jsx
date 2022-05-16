@@ -7,10 +7,20 @@ import {
   Header,
 } from "../../components/";
 import "./Notes.css";
+import { useNotes, useAuth } from "../../context";
 
 const Notes = () => {
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
+
+  const {
+    authState: { token },
+  } = useAuth();
+
+  const {
+    notesState: { notes },
+  } = useNotes();
+
   return (
     <main className="main-section">
       <SideNav />
@@ -19,7 +29,7 @@ const Notes = () => {
         <section className="notes-section-title">
           <div className="notes-title-text">
             <h2 className="notes-page-title">Notes</h2>
-            <span className="notes-subtitle">(6)</span>
+            <span className="notes-subtitle">({notes.length})</span>
           </div>
         </section>
 
@@ -38,21 +48,21 @@ const Notes = () => {
               <i className="fa-solid fa-plus margin-right"></i>
               Add New Note
             </button>
-            <NotesModal
-              showCreateModal={showCreateModal}
-              setShowCreateModal={setShowCreateModal}
-            />
+            {showCreateModal ? (
+              <NotesModal
+                setShowCreateModal={setShowCreateModal}
+                editData={false}
+                noteData={null}
+              />
+            ) : null}
           </div>
         </section>
 
         <hr />
         <section className="cards-container">
-          <NotesCard />
-          <NotesCard />
-          <NotesCard />
-          <NotesCard />
-          <NotesCard />
-          <NotesCard />
+          {notes.map((note) => {
+            return <NotesCard key={note._id} note={note} />;
+          })}
         </section>
       </section>
     </main>
