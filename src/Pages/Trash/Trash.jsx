@@ -1,8 +1,16 @@
 import React from "react";
 import "./Trash.css";
 import { SideNav, NotesCard, Header } from "../../components";
+import { useAuth, useTrash } from "../../context/";
 
 const Trash = () => {
+  const {
+    authState: { token },
+  } = useAuth();
+  const {
+    trashState: { trash },
+    trashDispatch,
+  } = useTrash();
   return (
     <>
       <main className="main-section">
@@ -13,9 +21,9 @@ const Trash = () => {
             <h2 className="section-heading">Trash</h2>
           </section>
           <section className="cards-container">
-            <NotesCard />
-            <NotesCard />
-            <NotesCard />
+            {trash
+              ? trash.map((note) => <NotesCard key={note._id} note={note} />)
+              : null}
           </section>
         </section>
       </main>

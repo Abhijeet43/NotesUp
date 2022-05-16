@@ -24,7 +24,6 @@ const Archive = () => {
             {archives
               ? archives.map((note) => <NotesCard key={note._id} note={note} />)
               : null}
-            {}
           </section>
         </section>
       </main>

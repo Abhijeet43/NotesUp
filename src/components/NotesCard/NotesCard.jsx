@@ -3,8 +3,15 @@ import ReactHtmlParser from "react-html-parser";
 import { useLocation } from "react-router-dom";
 import { getDate, getTime } from "../../functions/";
 import { NotesModal } from "../NotesModal/NotesModal";
-import { useAuth, useArchive, useNotes } from "../../context/";
-import { addToArchiveHandler, restoreArchivesHandler } from "../../functions/";
+import { useAuth, useArchive, useNotes, useTrash } from "../../context/";
+import {
+  addToArchiveHandler,
+  restoreArchivesHandler,
+  deleteFromArchivesHandler,
+  deleteNoteHandler,
+  restoreFromTrashHandler,
+  removeFromTrashHandler,
+} from "../../functions/";
 import "./NotesCard.css";
 
 const NotesCard = ({ note }) => {
@@ -20,11 +27,37 @@ const NotesCard = ({ note }) => {
   } = useArchive();
 
   const {
+    trashState: { trash },
+    trashDispatch,
+  } = useTrash();
+
+  const {
     notesState: { notes },
     notesDispatch,
   } = useNotes();
 
   const { pathname } = useLocation();
+
+  const restoreFromTrash = () => {
+    restoreFromTrashHandler(
+      token,
+      note,
+      notes,
+      trash,
+      trashDispatch,
+      notesDispatch
+    );
+  };
+
+  const addToTrash = () => {
+    if (pathname === "/notes") {
+      deleteNoteHandler(token, note, notesDispatch, trashDispatch);
+    } else if (pathname === "/archive") {
+      deleteFromArchivesHandler(token, note, archiveDispatch, trashDispatch);
+    } else {
+      removeFromTrashHandler(token, note, trashDispatch);
+    }
+  };
 
   const addToArchive = () =>
     addToArchiveHandler(token, note, archiveDispatch, notesDispatch);
@@ -59,10 +92,25 @@ const NotesCard = ({ note }) => {
             </p>
           </div>
           <div className="notes-card-footer-actions">
-            <button title="Delete" className="notes-card-action">
+            <button
+              title="Delete"
+              className="notes-card-action"
+              onClick={addToTrash}
+            >
               <i className="fa-solid fa-trash"></i>
             </button>
-            {pathname !== "/archive" ? (
+
+            {pathname === "/trash" ? (
+              <button
+                title="Restore"
+                className="notes-card-action"
+                onClick={restoreFromTrash}
+              >
+                <i className="icon fa-solid fa-trash-arrow-up"></i>
+              </button>
+            ) : null}
+
+            {pathname === "/notes" ? (
               <button
                 title="Edit"
                 className="notes-card-action"
@@ -72,7 +120,7 @@ const NotesCard = ({ note }) => {
               </button>
             ) : null}
 
-            {pathname !== "/archive" ? (
+            {pathname === "/trash" ? null : pathname !== "/archive" ? (
               <button
                 title="Archive"
                 className="notes-card-action"
