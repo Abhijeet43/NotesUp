@@ -3,7 +3,7 @@
   height: 300px;
   border-radius: 5px;
   box-shadow: 0 0 5px rgb(0 0 0 / 20%);
-  padding: 2rem;
+  padding: 1rem 2rem;
   display: flex;
   flex-direction: column;
 }
