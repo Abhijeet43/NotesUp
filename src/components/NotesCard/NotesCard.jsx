@@ -85,6 +85,10 @@ const NotesCard = ({ note }) => {
           </button>
         </div>
         <div className="notes-card-text">{ReactHtmlParser(note.text)}</div>
+        {note.priority !== "Default" ? (
+          <div className="priority">{note.priority}</div>
+        ) : null}
+
         <div className="notes-card-footer">
           <div className="notes-creation-details">
             <p>

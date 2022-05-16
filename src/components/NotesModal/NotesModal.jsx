@@ -21,7 +21,7 @@ const NotesModal = ({
         text: "",
         label: "",
         color: "Default",
-        priority: "Low",
+        priority: "Default",
         isPinned: false,
       };
 
