@@ -6,7 +6,6 @@ const pinNoteHandler = async (token, note, notesDispatch) => {
     const response = await pinNoteService(token, note);
     if (response.status === 200) {
       notesDispatch({ type: "EDIT_NOTE", payload: response.data.notes });
-      toast.info("Note pinned successfully");
     } else {
       throw new Error("Sorry!! Something Went Wrong...Try again later");
     }

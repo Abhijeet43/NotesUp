@@ -21,6 +21,7 @@ const filterReducer = (state, action) => {
       return {
         sortByDate: "",
         sortByPriority: "",
+        search: "",
       };
     default:
       return state;

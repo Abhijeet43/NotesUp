@@ -31,6 +31,7 @@ const LabelModal = ({ setShowLabelModal, showLabelModal }) => {
           value={newLabel}
           onChange={(e) => setNewLabel(e.target.value)}
           placeholder="Enter Label Name"
+          maxLength="10"
         />
         <button onClick={addNewLabel} className="btn btn-primary add-label-btn">
           Create Label
