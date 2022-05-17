@@ -20,11 +20,17 @@ const Trash = () => {
           <section className="section-title-container">
             <h2 className="section-heading">Trash</h2>
           </section>
-          <section className="cards-container">
-            {trash
-              ? trash.map((note) => <NotesCard key={note._id} note={note} />)
-              : null}
-          </section>
+          {trash.length > 0 ? (
+            <section className="cards-container">
+              {trash.map((note) => (
+                <NotesCard key={note._id} note={note} />
+              ))}
+            </section>
+          ) : (
+            <section className="empty-container">
+              <h3 className="empty-text">Trash donot have any notes.</h3>
+            </section>
+          )}
         </section>
       </main>
     </>

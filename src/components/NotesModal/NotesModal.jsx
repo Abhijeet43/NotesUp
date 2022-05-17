@@ -62,7 +62,9 @@ const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
     <section className="note-editor-wrapper  modal-active">
       <section className="note-editor">
         <div className="note-editor-header">
-          <h2 className="note-editor-title">Create Note</h2>
+          <h2 className="note-editor-title">
+            {editData ? "Update Note" : "Create Note"}
+          </h2>
           <button onClick={() => setShowCreateModal(false)}>
             <i className="fa-solid fa-xmark close-btn"></i>
           </button>

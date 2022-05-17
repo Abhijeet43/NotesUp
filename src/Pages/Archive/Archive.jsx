@@ -17,11 +17,17 @@ const Archive = () => {
           <section className="section-title-container">
             <h2 className="section-title">Archives</h2>
           </section>
-          <section className="cards-container">
-            {archives
-              ? archives.map((note) => <NotesCard key={note._id} note={note} />)
-              : null}
-          </section>
+          {archives.length > 0 ? (
+            <section className="cards-container">
+              {archives.map((note) => (
+                <NotesCard key={note._id} note={note} />
+              ))}
+            </section>
+          ) : (
+            <section className="empty-container">
+              <h3 className="empty-text">Archives donot have any notes.</h3>
+            </section>
+          )}
         </section>
       </main>
     </>

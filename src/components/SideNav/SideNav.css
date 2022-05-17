@@ -58,7 +58,7 @@
   color: var(--secondary-color);
 }
 
-.fa-xmark {
+.close-side-nav {
   display: none;
 }
 
@@ -84,6 +84,9 @@
   .fa-xmark {
     font-size: var(--font-size-4);
     margin-left: 1rem;
+  }
+
+  .close-side-nav {
     display: inline-block;
   }
 

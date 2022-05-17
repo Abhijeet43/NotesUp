@@ -50,7 +50,7 @@ const SideNav = () => {
             <span className="primary">Notes</span>Up
           </h1>
           <i
-            className="fa-solid fa-xmark"
+            className="fa-solid fa-xmark close-side-nav"
             onClick={() => setSideNavOpen(false)}
           ></i>
         </div>

@@ -51,4 +51,13 @@
   .fa-bars {
     display: inline-block;
   }
+
+  .search-box {
+    height: auto;
+    margin-left: 0.5rem;
+  }
+
+  .user-greet {
+    padding: 0;
+  }
 }
