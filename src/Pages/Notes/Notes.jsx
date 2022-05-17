@@ -10,6 +10,7 @@ import {
   getPinnedAndUnpinnedNotes,
   sortNotesByDate,
   sortNotesByPriority,
+  searchNotes,
 } from "../../functions/";
 import "./Notes.css";
 import { useNotes, useAuth, useFilter } from "../../context";
@@ -27,7 +28,7 @@ const Notes = () => {
   } = useNotes();
 
   const {
-    filterState: { sortByDate, sortByPriority },
+    filterState: { sortByDate, sortByPriority, search },
   } = useFilter();
 
   const { pinnedNotes, unPinnedNotes } = getPinnedAndUnpinnedNotes(notes);
@@ -38,6 +39,8 @@ const Notes = () => {
     sortedByDateNotes,
     sortByPriority
   );
+
+  const searchedNotes = searchNotes(sortedByPriorityNotes, search);
 
   return (
     <main className="main-section">
@@ -88,7 +91,7 @@ const Notes = () => {
             {pinnedNotes.map((note) => {
               return <NotesCard key={note._id} note={note} />;
             })}
-            {sortedByPriorityNotes.map((note) => {
+            {searchedNotes.map((note) => {
               return <NotesCard key={note._id} note={note} />;
             })}
           </section>

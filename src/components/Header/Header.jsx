@@ -1,7 +1,6 @@
 import React from "react";
-import { useSideNav } from "../../context/";
 import "./Header.css";
-import { useAuth } from "../../context/";
+import { useAuth, useSideNav, useFilter } from "../../context/";
 
 const Header = () => {
   const {
@@ -9,6 +8,11 @@ const Header = () => {
   } = useAuth();
 
   const { setSideNavOpen } = useSideNav();
+
+  const {
+    filterState: { search },
+    filterDispatch,
+  } = useFilter();
 
   return (
     <header className="section-header">
@@ -23,6 +27,13 @@ const Header = () => {
           className="notes-search"
           type="search"
           placeholder="Search Notes..."
+          value={search}
+          onChange={(e) =>
+            filterDispatch({
+              type: "SEARCH",
+              payload: { search: e.target.value },
+            })
+          }
         />
       </div>
       <div className="user-greet">Hi, {user.firstName}</div>

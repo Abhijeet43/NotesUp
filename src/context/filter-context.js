@@ -7,6 +7,7 @@ const FilterProvider = ({ children }) => {
   const [filterState, filterDispatch] = useReducer(filterReducer, {
     sortByDate: "",
     sortByPriority: "",
+    search: "",
   });
 
   return (

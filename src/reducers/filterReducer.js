@@ -10,6 +10,13 @@ const filterReducer = (state, action) => {
         ...state,
         sortByPriority: action.payload,
       };
+    case "SEARCH":
+      return {
+        ...state,
+        sortByDate: "",
+        sortByPriority: "",
+        search: action.payload.search,
+      };
     case "CLEAR_FILTER":
       return {
         sortByDate: "",
