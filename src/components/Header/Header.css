@@ -41,3 +41,14 @@
   font-size: var(--font-size-4);
   padding: 1rem;
 }
+
+.fa-bars {
+  font-size: var(--font-size-3);
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .fa-bars {
+    display: inline-block;
+  }
+}

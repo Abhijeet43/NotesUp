@@ -7,6 +7,7 @@ import {
   useArchive,
   useTrash,
   useLabel,
+  useSideNav,
 } from "../../context/";
 import { toast } from "react-toastify";
 import "./SideNav.css";
@@ -22,9 +23,10 @@ const SideNav = () => {
 
   const { notesDispatch } = useNotes();
 
+  const { sideNavOpen, setSideNavOpen } = useSideNav();
+
   const {
     labelState: { labels },
-    labelDispatch,
   } = useLabel();
 
   const navigate = useNavigate();
@@ -36,16 +38,21 @@ const SideNav = () => {
     notesDispatch({ type: "CLEAR_NOTES" });
     archiveDispatch({ type: "CLEAR_ARCHIVES" });
     trashDispatch({ type: "CLEAR_TRASH" });
+    setSideNavOpen(false);
     toast.success("Logout Successful");
   };
 
   return (
     <>
-      <aside className="side-nav">
+      <aside className={`side-nav ${sideNavOpen ? "side-nav-active" : ""}`}>
         <div className="side-nav-brand">
           <h1 onClick={() => navigate("/")}>
             <span className="primary">Notes</span>Up
           </h1>
+          <i
+            className="fa-solid fa-xmark"
+            onClick={() => setSideNavOpen(false)}
+          ></i>
         </div>
         <div className="side-nav-items">
           <NavLink to="/notes" className="side-nav-item">

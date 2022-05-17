@@ -10,6 +10,7 @@ import {
   TrashProvider,
   LabelProvider,
   FilterProvider,
+  SideNavProvider,
 } from "./context/";
 
 // Call make Server
@@ -23,7 +24,9 @@ ReactDOM.render(
           <TrashProvider>
             <ArchiveProvider>
               <FilterProvider>
-                <App />
+                <SideNavProvider>
+                  <App />
+                </SideNavProvider>
               </FilterProvider>
             </ArchiveProvider>
           </TrashProvider>
