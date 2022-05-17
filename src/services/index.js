@@ -11,3 +11,4 @@ export { deleteFromArchiveService } from "./archiveServices/deleteFromArchive.se
 export { deleteNoteService } from "./notesServices/deleteNote.service";
 export { restoreFromTrashService } from "./trashServices/restoreFromTrash.service";
 export { removeFromTrashService } from "./trashServices/removeFromTrash.service";
+export { pinNoteService } from "./notesServices/pinNote.service";

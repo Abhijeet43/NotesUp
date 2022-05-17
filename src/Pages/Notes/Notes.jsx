@@ -6,6 +6,7 @@ import {
   NotesModal,
   Header,
 } from "../../components/";
+import { getPinnedAndUnpinnedNotes } from "../../functions/";
 import "./Notes.css";
 import { useNotes, useAuth } from "../../context";
 
@@ -20,6 +21,8 @@ const Notes = () => {
   const {
     notesState: { notes },
   } = useNotes();
+
+  const { pinnedNotes, unPinnedNotes } = getPinnedAndUnpinnedNotes(notes);
 
   return (
     <main className="main-section">
@@ -59,11 +62,22 @@ const Notes = () => {
         </section>
 
         <hr />
-        <section className="cards-container">
-          {notes.map((note) => {
-            return <NotesCard key={note._id} note={note} />;
-          })}
-        </section>
+        {pinnedNotes.length === 0 && unPinnedNotes.length === 0 ? (
+          <section className="empty-container">
+            <h3 className="empty-text">
+              You have not added any notes till now.
+            </h3>
+          </section>
+        ) : (
+          <section className="cards-container">
+            {pinnedNotes.map((note) => {
+              return <NotesCard key={note._id} note={note} />;
+            })}
+            {unPinnedNotes.map((note) => {
+              return <NotesCard key={note._id} note={note} />;
+            })}
+          </section>
+        )}
       </section>
     </main>
   );

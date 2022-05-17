@@ -17,6 +17,10 @@
   display: flex;
 }
 
+.thumb-icon {
+  font-size: var(--font-size-5);
+}
+
 .notes-card-title {
   font-size: var(--font-size-4);
   white-space: nowrap;
@@ -103,7 +107,7 @@
 }
 
 .notes-card.blue {
-  background-color: #1b98f5;
+  background-color: #51e1ed;
 }
 
 .notes-card.orange {

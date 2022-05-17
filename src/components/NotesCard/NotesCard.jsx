@@ -11,6 +11,7 @@ import {
   deleteNoteHandler,
   restoreFromTrashHandler,
   removeFromTrashHandler,
+  pinNoteHandler,
 } from "../../functions/";
 import "./NotesCard.css";
 
@@ -59,6 +60,8 @@ const NotesCard = ({ note }) => {
     }
   };
 
+  const pinNote = () => pinNoteHandler(token, note, notesDispatch);
+
   const addToArchive = () =>
     addToArchiveHandler(token, note, archiveDispatch, notesDispatch);
 
@@ -85,8 +88,12 @@ const NotesCard = ({ note }) => {
             {note.priority !== "Default" ? (
               <div className="priority">{note.priority}</div>
             ) : null}
-            <button title="Pin" className="notes-card-action">
-              <i className="fa-solid fa-thumbtack"></i>
+            <button title="Pin" className="notes-card-action" onClick={pinNote}>
+              <i
+                className={`fa-solid fa-thumbtack thumb-icon ${
+                  note.isPinned ? "primary" : ""
+                }`}
+              ></i>
             </button>
           </div>
         </div>
