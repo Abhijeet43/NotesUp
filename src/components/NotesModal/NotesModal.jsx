@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { formatDate } from "../../backend/utils/authUtils";
 import { TextEditor } from "../index";
 import { toast } from "react-toastify";
-import { useNotes, useAuth } from "../../context/";
+import { useNotes, useAuth, useLabel } from "../../context/";
 import { addNoteHandler, editNoteHandler } from "../../functions/";
 import "./NotesModal.css";
 
 const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
   const { notesDispatch } = useNotes();
+
+  const {
+    labelState: { labels },
+  } = useLabel();
 
   const data = editData
     ? noteData
@@ -58,7 +62,9 @@ const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
     <section className="note-editor-wrapper  modal-active">
       <section className="note-editor">
         <div className="note-editor-header">
-          <h2 className="note-editor-title">Create Note</h2>
+          <h2 className="note-editor-title">
+            {editData ? "Update Note" : "Create Note"}
+          </h2>
           <button onClick={() => setShowCreateModal(false)}>
             <i className="fa-solid fa-xmark close-btn"></i>
           </button>
@@ -89,9 +95,10 @@ const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
               value={newNote.label}
               onChange={inputHandler}
             >
-              <option>Select Label</option>
-              <option value="work">Work</option>
-              <option value="meetings">Meetings</option>
+              <option value="">Select Label</option>
+              {labels.map((label) => (
+                <option value={label}>{label}</option>
+              ))}
             </select>
           </div>
           <div className="note-editor-options-element">

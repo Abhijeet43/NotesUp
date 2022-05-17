@@ -49,7 +49,7 @@ select {
   cursor: pointer;
 }
 
-option {
+option:hover {
   cursor: pointer;
 }
 
@@ -77,9 +77,26 @@ option {
 }
 
 .note-text.blue > .ql-snow {
-  background-color: #1b98f5;
+  background-color: #51e1ed;
 }
 
 .note-text.orange > .ql-snow {
   background-color: #ed9121;
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 768px) {
+  .note-editor {
+    width: 33rem;
+  }
+
+  .note-editor-options {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .note-editor-footer {
+    justify-content: center;
+  }
 }

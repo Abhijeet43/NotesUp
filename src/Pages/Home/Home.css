@@ -24,7 +24,7 @@
 }
 
 .section-content-title {
-  font-size: var(--font-size-3);
+  font-size: var(--font-size-2);
   margin-bottom: 1rem;
 }
 
@@ -53,4 +53,25 @@
 .hero-img {
   display: block;
   height: 45rem;
+}
+
+/* MEDIA QUERIES */
+
+@media (max-width: 768px) {
+  .home-content {
+    flex-direction: column;
+  }
+
+  .section-content {
+    order: 2;
+    text-align: center;
+  }
+
+  .section-content-description {
+    line-height: 3rem;
+  }
+
+  .btn-container {
+    align-items: center;
+  }
 }

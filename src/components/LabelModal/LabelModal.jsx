@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import { useLabel } from "../../context/";
 import "./LabelModal.css";
 
 const LabelModal = ({ setShowLabelModal, showLabelModal }) => {
+  const [newLabel, setNewLabel] = useState("");
+
+  const { labelDispatch } = useLabel();
+
+  const addNewLabel = () => {
+    labelDispatch({ type: "ADD_LABEL", payload: newLabel });
+    setShowLabelModal(false);
+    setNewLabel("");
+  };
+
   return (
     <section
       className={`label-backdrop ${showLabelModal ? "modal-active" : ""}`}
@@ -17,9 +28,14 @@ const LabelModal = ({ setShowLabelModal, showLabelModal }) => {
         <input
           className="new-label-text"
           type="text"
+          value={newLabel}
+          onChange={(e) => setNewLabel(e.target.value)}
           placeholder="Enter Label Name"
+          maxLength="10"
         />
-        <button className="btn btn-primary add-label-btn">Create Label</button>
+        <button onClick={addNewLabel} className="btn btn-primary add-label-btn">
+          Create Label
+        </button>
       </section>
     </section>
   );

@@ -49,3 +49,12 @@ input[type="radio"] {
   margin-right: 0.5rem;
   cursor: pointer;
 }
+
+/* MEDIA QUERIES */
+
+@media (max-width: 768px) {
+  .filter-menu {
+    left: 1rem;
+    transform-origin: top center;
+  }
+}

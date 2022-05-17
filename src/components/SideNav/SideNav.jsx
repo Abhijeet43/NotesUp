@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import { LabelModal } from "../index";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth, useNotes, useArchive, useTrash } from "../../context/";
+import {
+  useAuth,
+  useNotes,
+  useArchive,
+  useTrash,
+  useLabel,
+  useSideNav,
+} from "../../context/";
 import { toast } from "react-toastify";
 import "./SideNav.css";
 
@@ -16,6 +23,12 @@ const SideNav = () => {
 
   const { notesDispatch } = useNotes();
 
+  const { sideNavOpen, setSideNavOpen } = useSideNav();
+
+  const {
+    labelState: { labels },
+  } = useLabel();
+
   const navigate = useNavigate();
 
   const logoutHandler = () => {
@@ -25,16 +38,21 @@ const SideNav = () => {
     notesDispatch({ type: "CLEAR_NOTES" });
     archiveDispatch({ type: "CLEAR_ARCHIVES" });
     trashDispatch({ type: "CLEAR_TRASH" });
+    setSideNavOpen(false);
     toast.success("Logout Successful");
   };
 
   return (
     <>
-      <aside className="side-nav">
+      <aside className={`side-nav ${sideNavOpen ? "side-nav-active" : ""}`}>
         <div className="side-nav-brand">
           <h1 onClick={() => navigate("/")}>
             <span className="primary">Notes</span>Up
           </h1>
+          <i
+            className="fa-solid fa-xmark close-side-nav"
+            onClick={() => setSideNavOpen(false)}
+          ></i>
         </div>
         <div className="side-nav-items">
           <NavLink to="/notes" className="side-nav-item">
@@ -54,25 +72,17 @@ const SideNav = () => {
               <div className="side-nav-text">Labels</div>
             </div>
             <div className="tag-labels">
-              <NavLink to="/:tagName" className="side-nav-item tag-label">
-                <div className="side-nav-icon">
-                  <i className="fa-solid fa-tag"></i>
-                </div>
-                <div className="side-nav-text">Meetings</div>
-                <div>
-                  <i className="fa-solid fa-trash danger"></i>
-                </div>
-              </NavLink>
-
-              <NavLink to="/:tagName" className="side-nav-item tag-label">
-                <div className="side-nav-icon">
-                  <i className="fa-solid fa-tag"></i>
-                </div>
-                <div className="side-nav-text">Work</div>
-                <div>
-                  <i className="fa-solid fa-trash danger"></i>
-                </div>
-              </NavLink>
+              {labels &&
+                labels.map((label, index) => (
+                  <div
+                    key={index}
+                    onClick={() => navigate(`/labels/${label}`)}
+                    className="side-nav-item tag-label"
+                  >
+                    <i className="fa-solid fa-tag tag-menu-icon"></i>
+                    {label}
+                  </div>
+                ))}
             </div>
             <button
               className="btn btn-primary no-max-width"

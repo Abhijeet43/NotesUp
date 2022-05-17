@@ -3,4 +3,10 @@ const getDate = (date) =>
 
 const getTime = (date) => date.slice(11, 16);
 
-export { getDate, getTime };
+const getPinnedAndUnpinnedNotes = (notes) => {
+  const pinnedNotes = notes.filter((note) => note.isPinned);
+  const unPinnedNotes = notes.filter((note) => !note.isPinned);
+  return { pinnedNotes, unPinnedNotes };
+};
+
+export { getDate, getTime, getPinnedAndUnpinnedNotes };

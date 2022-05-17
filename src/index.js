@@ -8,6 +8,9 @@ import {
   NotesProvider,
   ArchiveProvider,
   TrashProvider,
+  LabelProvider,
+  FilterProvider,
+  SideNavProvider,
 } from "./context/";
 
 // Call make Server
@@ -16,13 +19,19 @@ makeServer();
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-      <NotesProvider>
-        <TrashProvider>
-          <ArchiveProvider>
-            <App />
-          </ArchiveProvider>
-        </TrashProvider>
-      </NotesProvider>
+      <LabelProvider>
+        <NotesProvider>
+          <TrashProvider>
+            <ArchiveProvider>
+              <FilterProvider>
+                <SideNavProvider>
+                  <App />
+                </SideNavProvider>
+              </FilterProvider>
+            </ArchiveProvider>
+          </TrashProvider>
+        </NotesProvider>
+      </LabelProvider>
     </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
