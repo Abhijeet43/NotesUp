@@ -6,9 +6,13 @@ import {
   NotesModal,
   Header,
 } from "../../components/";
-import { getPinnedAndUnpinnedNotes } from "../../functions/";
+import {
+  getPinnedAndUnpinnedNotes,
+  sortNotesByDate,
+  sortNotesByPriority,
+} from "../../functions/";
 import "./Notes.css";
-import { useNotes, useAuth } from "../../context";
+import { useNotes, useAuth, useFilter } from "../../context";
 
 const Notes = () => {
   const [showFilterModal, setShowFilterModal] = useState(false);
@@ -22,7 +26,18 @@ const Notes = () => {
     notesState: { notes },
   } = useNotes();
 
+  const {
+    filterState: { sortByDate, sortByPriority },
+  } = useFilter();
+
   const { pinnedNotes, unPinnedNotes } = getPinnedAndUnpinnedNotes(notes);
+
+  const sortedByDateNotes = sortNotesByDate(unPinnedNotes, sortByDate);
+
+  const sortedByPriorityNotes = sortNotesByPriority(
+    sortedByDateNotes,
+    sortByPriority
+  );
 
   return (
     <main className="main-section">
@@ -73,7 +88,7 @@ const Notes = () => {
             {pinnedNotes.map((note) => {
               return <NotesCard key={note._id} note={note} />;
             })}
-            {unPinnedNotes.map((note) => {
+            {sortedByPriorityNotes.map((note) => {
               return <NotesCard key={note._id} note={note} />;
             })}
           </section>

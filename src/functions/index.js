@@ -11,3 +11,5 @@ export { getTrashHandler } from "./trashHandlers/getTrashHandler";
 export { restoreFromTrashHandler } from "./trashHandlers/restoreFromTrashHandler";
 export { removeFromTrashHandler } from "./trashHandlers/removeFromTrashHandler";
 export { pinNoteHandler } from "./noteHandlers/pinNoteHandler";
+export { sortNotesByDate } from "./noteHandlers/sortNotesByDate";
+export { sortNotesByPriority } from "./noteHandlers/sortNotesByPriority";
