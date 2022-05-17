@@ -22,7 +22,7 @@
 }
 
 .tag-menu-icon {
-  margin-left: 1rem;
+  margin-right: 0.8rem;
   cursor: pointer;
 }
 
@@ -32,6 +32,7 @@
   margin: 1rem;
   border-radius: 30px;
   display: flex;
+  align-items: center;
   color: var(--primary-color);
   font-size: var(--font-size-4);
   cursor: pointer;
@@ -45,11 +46,6 @@
 
 .tag-label .side-nav-icon {
   margin: 0;
-}
-
-.tag-label .side-nav-text {
-  flex-grow: 1;
-  text-align: center;
 }
 
 .side-nav-icon {

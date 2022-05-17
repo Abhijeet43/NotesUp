@@ -1,14 +1,11 @@
 import React from "react";
 import "./Archive.css";
-import { useAuth, useArchive } from "../../context/";
+import { useArchive } from "../../context/";
 import { SideNav, NotesCard, Header } from "../../components";
 
 const Archive = () => {
-  const { authState: token } = useAuth();
-
   const {
     archiveState: { archives },
-    archiveDispatch,
   } = useArchive();
 
   return (

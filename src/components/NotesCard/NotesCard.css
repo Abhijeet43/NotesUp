@@ -13,6 +13,10 @@
   justify-content: space-between;
 }
 
+.notes-card-header-side {
+  display: flex;
+}
+
 .notes-card-title {
   font-size: var(--font-size-4);
   white-space: nowrap;
@@ -39,14 +43,19 @@
   justify-content: space-between;
 }
 
-.priority {
+.priority,
+.label {
   font-size: var(--font-size-6);
   background: var(--primary-color);
   color: var(--secondary-color);
   padding: 0.2rem 0.5rem;
   width: max-content;
   border-radius: 10px;
+}
+
+.priority {
   text-transform: uppercase;
+  margin: 0 1rem;
 }
 
 .notes-creation-details {

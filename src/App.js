@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Home, Notes, Archive, Trash, Signup, Login } from "./Pages/";
+import { Home, Notes, Archive, Trash, Signup, Login, Label } from "./Pages/";
 import { RequiresAuth } from "./RequiresAuth";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -46,6 +46,14 @@ function App() {
             element={
               <RequiresAuth>
                 <Trash />
+              </RequiresAuth>
+            }
+          />
+          <Route
+            path="/labels/:labelName"
+            element={
+              <RequiresAuth>
+                <Label />
               </RequiresAuth>
             }
           />

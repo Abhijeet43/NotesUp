@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { LabelModal } from "../index";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth, useNotes, useArchive, useTrash } from "../../context/";
+import {
+  useAuth,
+  useNotes,
+  useArchive,
+  useTrash,
+  useLabel,
+} from "../../context/";
 import { toast } from "react-toastify";
 import "./SideNav.css";
 
@@ -15,6 +21,11 @@ const SideNav = () => {
   const { trashDispatch } = useTrash();
 
   const { notesDispatch } = useNotes();
+
+  const {
+    labelState: { labels },
+    labelDispatch,
+  } = useLabel();
 
   const navigate = useNavigate();
 
@@ -54,25 +65,17 @@ const SideNav = () => {
               <div className="side-nav-text">Labels</div>
             </div>
             <div className="tag-labels">
-              <NavLink to="/:tagName" className="side-nav-item tag-label">
-                <div className="side-nav-icon">
-                  <i className="fa-solid fa-tag"></i>
-                </div>
-                <div className="side-nav-text">Meetings</div>
-                <div>
-                  <i className="fa-solid fa-trash danger"></i>
-                </div>
-              </NavLink>
-
-              <NavLink to="/:tagName" className="side-nav-item tag-label">
-                <div className="side-nav-icon">
-                  <i className="fa-solid fa-tag"></i>
-                </div>
-                <div className="side-nav-text">Work</div>
-                <div>
-                  <i className="fa-solid fa-trash danger"></i>
-                </div>
-              </NavLink>
+              {labels &&
+                labels.map((label, index) => (
+                  <div
+                    key={index}
+                    onClick={() => navigate(`/labels/${label}`)}
+                    className="side-nav-item tag-label"
+                  >
+                    <i className="fa-solid fa-tag tag-menu-icon"></i>
+                    {label}
+                  </div>
+                ))}
             </div>
             <button
               className="btn btn-primary no-max-width"
