@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { useLabel } from "../../context/";
 import "./LabelModal.css";
 
@@ -9,6 +10,7 @@ const LabelModal = ({ setShowLabelModal, showLabelModal }) => {
 
   const addNewLabel = () => {
     labelDispatch({ type: "ADD_LABEL", payload: newLabel });
+    toast.info("New Label Created!!");
     setShowLabelModal(false);
     setNewLabel("");
   };
