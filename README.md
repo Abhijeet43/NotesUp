@@ -1,4 +1,4 @@
-Notes Up
+# Notes Up
 
 Notes Up is an on the go note taking tool for people who like to organize and manage their tasks.
 
