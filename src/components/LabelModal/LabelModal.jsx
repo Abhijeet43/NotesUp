@@ -1,16 +1,29 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { useLabel } from "../../context/";
 import "./LabelModal.css";
 
 const LabelModal = ({ setShowLabelModal, showLabelModal }) => {
   const [newLabel, setNewLabel] = useState("");
 
-  const { labelDispatch } = useLabel();
+  const {
+    labelState: { labels },
+    labelDispatch,
+  } = useLabel();
 
   const addNewLabel = () => {
-    labelDispatch({ type: "ADD_LABEL", payload: newLabel });
-    setShowLabelModal(false);
-    setNewLabel("");
+    if (
+      !labels.some(
+        (label) => label.toLowerCase() === newLabel.trim().toLowerCase()
+      )
+    ) {
+      labelDispatch({ type: "ADD_LABEL", payload: newLabel });
+      toast.info("New Label Created!!");
+      setShowLabelModal(false);
+      setNewLabel("");
+    } else {
+      toast.error("Label Already Exists");
+    }
   };
 
   return (
@@ -22,7 +35,10 @@ const LabelModal = ({ setShowLabelModal, showLabelModal }) => {
           <h3 className="modal-title">Add New Label</h3>
           <i
             className="fa-solid fa-xmark close-btn"
-            onClick={() => setShowLabelModal(false)}
+            onClick={() => {
+              setShowLabelModal(false);
+              setNewLabel("");
+            }}
           ></i>
         </div>
         <input
