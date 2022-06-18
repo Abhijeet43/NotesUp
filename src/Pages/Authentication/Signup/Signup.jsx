@@ -5,6 +5,11 @@ import { useToggle } from "../../../hooks/useToggle";
 import { toast } from "react-toastify";
 import { signUpService } from "../../../services/";
 import { useAuth } from "../../../context/";
+import {
+  validateEmail,
+  validatePassword,
+  confirmPasswordCheck,
+} from "../../../functions/";
 
 const Signup = () => {
   const [showPass, setShowPass] = useToggle(false);
@@ -44,28 +49,25 @@ const Signup = () => {
     e.preventDefault();
     try {
       if (checkInputs()) {
-        if (user.password !== user.confirmPassword) {
-          toast.error("Password and Confirm Password donot match");
-          return;
-        }
-        const response = await signUpService(user);
-        if (response.status === 201) {
-          authDispatch({
-            type: "SIGNUP",
-            payload: {
-              token: response.data.encodedToken,
-              user: response.data.createdUser,
-            },
-          });
-          localStorage.setItem("token", response.data.encodedToken);
-          localStorage.setItem(
-            "user",
-            JSON.stringify(response.data.createdUser)
-          );
-          toast.success("Signup Success!!");
-          navigate("/notes");
-        } else {
-          throw new Error("Something went wrong! Please try again later");
+        if (
+          validateEmail(user.email) &&
+          validatePassword(user.password) &&
+          confirmPasswordCheck(user.password, user.confirmPassword)
+        ) {
+          const response = await signUpService(user);
+          if (response.status === 201) {
+            authDispatch({
+              type: "SIGNUP",
+              payload: {
+                token: response.data.encodedToken,
+                user: response.data.createdUser,
+              },
+            });
+            toast.success("Signup Success!!");
+            navigate("/notes");
+          } else {
+            throw new Error("Something went wrong! Please try again later");
+          }
         }
       } else {
         toast.warning("Fields Cannot Be Empty");
