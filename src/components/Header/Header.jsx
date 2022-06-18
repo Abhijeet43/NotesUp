@@ -1,6 +1,7 @@
 import React from "react";
 import "./Header.css";
 import { useAuth, useSideNav, useFilter } from "../../context/";
+import { FaBars } from "react-icons/fa";
 
 const Header = () => {
   const {
@@ -17,7 +18,7 @@ const Header = () => {
   return (
     <header className="section-header">
       <div onClick={() => setSideNavOpen(true)}>
-        <i class="fa-solid fa-bars"></i>{" "}
+        <FaBars className="menu-icon" />
       </div>
       <div className="search-box">
         <button className="search-btn">

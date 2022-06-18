@@ -52,7 +52,7 @@ form {
   margin: 0.5em;
 }
 
-.form-group i {
+.form-group .eye-icon {
   position: absolute;
   font-size: var(--font-size-4);
   top: 2rem;
@@ -64,7 +64,7 @@ form {
   border-color: var(--primary-color);
 }
 
-.form-group input:focus + i {
+.form-group input:focus + svg {
   color: var(--primary-color);
 }
 
@@ -116,8 +116,8 @@ form {
   font-size: var(--font-size-6);
 }
 
-.fa-eye:hover,
-.fa-eye-slash {
+.eye-icon:hover,
+.eye-icon {
   color: var(--primary-color);
   cursor: pointer;
 }

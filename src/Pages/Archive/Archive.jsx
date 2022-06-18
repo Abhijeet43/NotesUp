@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Archive.css";
-import { useArchive } from "../../context/";
+import { useArchive, useSideNav } from "../../context/";
 import { SideNav, NotesCard, Header } from "../../components";
 
 const Archive = () => {
   const {
     archiveState: { archives },
   } = useArchive();
+
+  const { setSideNavOpen } = useSideNav();
+
+  useEffect(() => {
+    setSideNavOpen(false);
+  }, []);
 
   return (
     <>

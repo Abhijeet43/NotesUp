@@ -12,6 +12,14 @@ const AuthProvider = ({ children }) => {
     token: null,
   });
 
+  if (!authState.token) {
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
+    token && user
+      ? authDispatch({ type: "INITIAL_CHECK", payload: { user, token } })
+      : null;
+  }
+
   return (
     <AuthContext.Provider value={{ authState, authDispatch }}>
       {children}

@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../authentication.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useToggle } from "../../../hooks/useToggle";
 import { toast } from "react-toastify";
 import { signUpService } from "../../../services/";
 import { useAuth } from "../../../context/";
+import {
+  validateEmail,
+  validatePassword,
+  confirmPasswordCheck,
+} from "../../../functions/";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Signup = () => {
   const [showPass, setShowPass] = useToggle(false);
   const [showConfirmPass, setShowConfirmPass] = useToggle(false);
 
-  const { authDispatch } = useAuth();
+  const {
+    authState: { token },
+    authDispatch,
+  } = useAuth();
 
   const navigate = useNavigate();
 
@@ -44,28 +53,25 @@ const Signup = () => {
     e.preventDefault();
     try {
       if (checkInputs()) {
-        if (user.password !== user.confirmPassword) {
-          toast.error("Password and Confirm Password donot match");
-          return;
-        }
-        const response = await signUpService(user);
-        if (response.status === 201) {
-          authDispatch({
-            type: "SIGNUP",
-            payload: {
-              token: response.data.encodedToken,
-              user: response.data.createdUser,
-            },
-          });
-          localStorage.setItem("token", response.data.encodedToken);
-          localStorage.setItem(
-            "user",
-            JSON.stringify(response.data.createdUser)
-          );
-          toast.success("Signup Success!!");
-          navigate("/notes");
-        } else {
-          throw new Error("Something went wrong! Please try again later");
+        if (
+          validateEmail(user.email) &&
+          validatePassword(user.password) &&
+          confirmPasswordCheck(user.password, user.confirmPassword)
+        ) {
+          const response = await signUpService(user);
+          if (response.status === 201) {
+            authDispatch({
+              type: "SIGNUP",
+              payload: {
+                token: response.data.encodedToken,
+                user: response.data.createdUser,
+              },
+            });
+            toast.success("Signup Success!!");
+            navigate("/notes");
+          } else {
+            throw new Error("Something went wrong! Please try again later");
+          }
         }
       } else {
         toast.warning("Fields Cannot Be Empty");
@@ -74,6 +80,10 @@ const Signup = () => {
       toast.error(error.response.data.errors[0]);
     }
   };
+
+  useEffect(() => {
+    if (token) navigate("/notes");
+  }, []);
 
   return (
     <>
@@ -120,10 +130,11 @@ const Signup = () => {
                 onChange={changeHandler}
                 required
               />
-              <i
-                className={`fas ${showPass ? "fa-eye-slash" : "fa-eye"}`}
-                onClick={setShowPass}
-              ></i>
+              {showPass ? (
+                <FaEyeSlash className="eye-icon" onClick={setShowPass} />
+              ) : (
+                <FaEye className="eye-icon" onClick={setShowPass} />
+              )}
             </div>
             <div className="form-group">
               <input
@@ -134,10 +145,12 @@ const Signup = () => {
                 onChange={changeHandler}
                 required
               />
-              <i
-                className={`fas ${showConfirmPass ? "fa-eye-slash" : "fa-eye"}`}
-                onClick={setShowConfirmPass}
-              ></i>
+
+              {showConfirmPass ? (
+                <FaEyeSlash className="eye-icon" onClick={setShowConfirmPass} />
+              ) : (
+                <FaEye className="eye-icon" onClick={setShowConfirmPass} />
+              )}
             </div>
             <div className="form-group">
               <span className="terms">

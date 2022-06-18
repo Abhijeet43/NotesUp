@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { formatDate } from "../../backend/utils/authUtils";
-import { TextEditor } from "../index";
+import { TextEditor, LabelModal } from "../index";
 import { toast } from "react-toastify";
 import { useNotes, useAuth, useLabel } from "../../context/";
 import { addNoteHandler, editNoteHandler } from "../../functions/";
+import { FaTimes } from "react-icons/fa";
 import "./NotesModal.css";
 
 const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
@@ -20,11 +21,13 @@ const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
         text: "",
         label: "",
         color: "White",
-        priority: "Default",
+        priority: "low",
         isPinned: false,
       };
 
   const [newNote, setNewNote] = useState(data);
+
+  const [showLabelModal, setShowLabelModal] = useState(false);
 
   const {
     authState: { token },
@@ -66,7 +69,7 @@ const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
             {editData ? "Update Note" : "Create Note"}
           </h2>
           <button onClick={() => setShowCreateModal(false)}>
-            <i className="fa-solid fa-xmark close-btn"></i>
+            <FaTimes className="close-btn" />
           </button>
         </div>
         <div className="note-editor-content">
@@ -111,7 +114,6 @@ const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
               value={newNote.priority}
               onChange={inputHandler}
             >
-              <option>Default</option>
               <option value="low">Low</option>
               <option value="high">High</option>
             </select>
@@ -139,8 +141,18 @@ const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
           <button onClick={createNoteHandler} className="btn btn-primary">
             {editData ? "Update Note" : "Create Note"}
           </button>
+          <button
+            onClick={() => setShowLabelModal(true)}
+            className="btn btn-primary"
+          >
+            Add Label
+          </button>
         </div>
       </section>
+      <LabelModal
+        setShowLabelModal={setShowLabelModal}
+        showLabelModal={showLabelModal}
+      />
     </section>
   );
 };

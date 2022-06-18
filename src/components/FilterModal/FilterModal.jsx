@@ -1,5 +1,6 @@
 import React from "react";
 import { useFilter } from "../../context/";
+import { FaFilter } from "react-icons/fa";
 import "./FilterModal.css";
 
 const FilterModal = ({ showFilterModal, setShowFilterModal }) => {
@@ -10,10 +11,10 @@ const FilterModal = ({ showFilterModal, setShowFilterModal }) => {
   return (
     <div className="filter">
       <button
-        className="btn btn-primary no-max-width"
+        className="btn btn-primary no-max-width flex-align"
         onClick={() => setShowFilterModal((prevVal) => !prevVal)}
       >
-        <i className="fa-solid fa-arrow-up-wide-short margin-right"></i>
+        <FaFilter className="margin-right" />
         Filters
       </button>
       <div className={`filter-menu ${showFilterModal ? "filter-active" : ""}`}>

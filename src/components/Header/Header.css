@@ -42,13 +42,13 @@
   padding: 1rem;
 }
 
-.fa-bars {
+.menu-icon {
   font-size: var(--font-size-3);
   display: none;
 }
 
 @media (max-width: 768px) {
-  .fa-bars {
+  .menu-icon {
     display: inline-block;
   }
 

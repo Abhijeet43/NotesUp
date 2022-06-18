@@ -10,6 +10,16 @@ import {
   useSideNav,
 } from "../../context/";
 import { toast } from "react-toastify";
+import {
+  FaLightbulb,
+  FaTags,
+  FaTag,
+  FaArchive,
+  FaTrash,
+  FaTimes,
+} from "react-icons/fa";
+import { RiLogoutCircleRLine } from "react-icons/ri";
+import { FiPlus } from "react-icons/fi";
 import "./SideNav.css";
 
 const SideNav = () => {
@@ -49,15 +59,16 @@ const SideNav = () => {
           <h1 onClick={() => navigate("/")}>
             <span className="primary">Notes</span>Up
           </h1>
-          <i
-            className="fa-solid fa-xmark close-side-nav"
+
+          <FaTimes
+            className="close-side-nav"
             onClick={() => setSideNavOpen(false)}
-          ></i>
+          />
         </div>
         <div className="side-nav-items">
           <NavLink to="/notes" className="side-nav-item">
             <div className="side-nav-icon">
-              <i className="fa-solid fa-lightbulb"></i>
+              <FaLightbulb />
             </div>
             <div className="side-nav-text">Notes</div>
           </NavLink>
@@ -67,7 +78,7 @@ const SideNav = () => {
           <div>
             <div className="side-nav-item">
               <div className="side-nav-icon">
-                <i className="fa-solid fa-tags"></i>
+                <FaTags />
               </div>
               <div className="side-nav-text">Labels</div>
             </div>
@@ -79,16 +90,16 @@ const SideNav = () => {
                     onClick={() => navigate(`/labels/${label}`)}
                     className="side-nav-item tag-label"
                   >
-                    <i className="fa-solid fa-tag tag-menu-icon"></i>
+                    <FaTag className="tag-menu-icon" />
                     {label}
                   </div>
                 ))}
             </div>
             <button
-              className="btn btn-primary no-max-width"
+              className="btn btn-primary no-max-width flex-align"
               onClick={() => setShowLabelModal(true)}
             >
-              <i className="fa-solid fa-circle-plus margin-right"></i>
+              <FiPlus className="margin-right" />
               Add Label
             </button>
           </div>
@@ -97,14 +108,14 @@ const SideNav = () => {
 
           <NavLink to="/archive" className="side-nav-item">
             <div className="side-nav-icon">
-              <i className="fa-solid fa-box-archive"></i>
+              <FaArchive />
             </div>
             <div className="side-nav-text">Archive</div>
           </NavLink>
 
           <NavLink to="/trash" className="side-nav-item">
             <div className="side-nav-icon">
-              <i className="fa-solid fa-trash"></i>
+              <FaTrash />
             </div>
             <div className="side-nav-text">Trash</div>
           </NavLink>
@@ -114,7 +125,7 @@ const SideNav = () => {
             className="side-nav-item no-max-width"
           >
             <div className="side-nav-icon">
-              <i className="fa-solid fa-arrow-right-from-bracket"></i>
+              <RiLogoutCircleRLine />
             </div>
             <div className="side-nav-text">Logout</div>
           </button>

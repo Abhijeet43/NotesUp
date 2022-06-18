@@ -13,6 +13,8 @@ import {
   removeFromTrashHandler,
   pinNoteHandler,
 } from "../../functions/";
+import { BsPin, BsPinFill } from "react-icons/bs";
+import { FaTrash, FaEdit, FaArchive, FaTrashRestore } from "react-icons/fa";
 import "./NotesCard.css";
 
 const NotesCard = ({ note }) => {
@@ -89,11 +91,11 @@ const NotesCard = ({ note }) => {
               <div className="priority">{note.priority}</div>
             ) : null}
             <button title="Pin" className="notes-card-action" onClick={pinNote}>
-              <i
-                className={`fa-solid fa-thumbtack thumb-icon ${
-                  note.isPinned ? "primary" : ""
-                }`}
-              ></i>
+              {note.isPinned ? (
+                <BsPinFill className="thumb-icon" />
+              ) : (
+                <BsPin className="thumb-icon" />
+              )}
             </button>
           </div>
         </div>
@@ -111,7 +113,7 @@ const NotesCard = ({ note }) => {
               className="notes-card-action"
               onClick={addToTrash}
             >
-              <i className="fa-solid fa-trash"></i>
+              <FaTrash className="note-icon" />
             </button>
 
             {pathname === "/trash" ? (
@@ -120,7 +122,7 @@ const NotesCard = ({ note }) => {
                 className="notes-card-action"
                 onClick={restoreFromTrash}
               >
-                <i className="icon fa-solid fa-trash-arrow-up"></i>
+                <FaTrashRestore className="note-icon" />
               </button>
             ) : null}
 
@@ -130,7 +132,7 @@ const NotesCard = ({ note }) => {
                 className="notes-card-action"
                 onClick={editModalHandler}
               >
-                <i className="fa-solid fa-pen-to-square"></i>
+                <FaEdit className="note-icon" />
               </button>
             ) : null}
 
@@ -140,7 +142,7 @@ const NotesCard = ({ note }) => {
                 className="notes-card-action"
                 onClick={addToArchive}
               >
-                <i className="fa-solid fa-box-archive"></i>
+                <FaArchive className="note-icon" />
               </button>
             ) : (
               <button
@@ -148,7 +150,7 @@ const NotesCard = ({ note }) => {
                 className="notes-card-action"
                 onClick={restoreFromArchive}
               >
-                <i className="fa-solid fa-box-archive"></i>
+                <FaArchive className="note-icon" />
               </button>
             )}
           </div>

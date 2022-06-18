@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   NotesCard,
   SideNav,
@@ -13,15 +13,14 @@ import {
   searchNotes,
 } from "../../functions/";
 import "./Notes.css";
-import { useNotes, useAuth, useFilter } from "../../context";
+import { useNotes, useSideNav, useFilter } from "../../context";
+import { FaPlus } from "react-icons/fa";
 
 const Notes = () => {
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
-  const {
-    authState: { token },
-  } = useAuth();
+  const { setSideNavOpen } = useSideNav();
 
   const {
     notesState: { notes },
@@ -41,6 +40,10 @@ const Notes = () => {
   );
 
   const searchedNotes = searchNotes(sortedByPriorityNotes, search);
+
+  useEffect(() => {
+    setSideNavOpen(false);
+  }, []);
 
   return (
     <main className="main-section">
@@ -63,10 +66,10 @@ const Notes = () => {
           />
           <div className="new-notes">
             <button
-              className="btn btn-primary no-max-width"
+              className="btn btn-primary no-max-width flex-align"
               onClick={() => setShowCreateModal(true)}
             >
-              <i className="fa-solid fa-plus margin-right"></i>
+              <FaPlus className="margin-right" />
               Add New Note
             </button>
             {showCreateModal ? (

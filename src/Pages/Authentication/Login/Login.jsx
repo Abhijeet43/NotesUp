@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../authentication.css";
 import { toast } from "react-toastify";
 import { useToggle } from "../../../hooks/useToggle";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth, useNotes, useArchive, useTrash } from "../../../context/";
 import { loginService } from "../../../services/";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import {
   getNotesHandler,
   getArchivesHandler,
   getTrashHandler,
+  validateEmail,
 } from "../../../functions/";
 
 const Login = () => {
   const [showPass, setShowPass] = useToggle(false);
+  const [remember, setRemember] = useToggle(false);
 
-  const { authDispatch } = useAuth();
+  const {
+    authState: { token },
+    authDispatch,
+  } = useAuth();
 
   const { notesDispatch } = useNotes();
 
@@ -47,40 +53,52 @@ const Login = () => {
   const guestUserHandler = (e) => {
     e.preventDefault();
     setUser(guestUser);
+    setRemember(true);
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
     if (user.email !== "" && user.password !== "") {
-      try {
-        const response = await loginService(user);
-        if (response.status === 200) {
-          localStorage.setItem("token", response.data.encodedToken);
-          localStorage.setItem("user", JSON.stringify(response.data.foundUser));
-          getNotesHandler(response.data.encodedToken, notesDispatch);
-          getArchivesHandler(response.data.encodedToken, archiveDispatch);
-          getTrashHandler(response.data.encodedToken, trashDispatch);
-          authDispatch({
-            type: "LOGIN",
-            payload: {
-              token: response.data.encodedToken,
-              user: response.data.foundUser,
-            },
-          });
-          navigate(location?.state?.from?.pathname || "/notes", {
-            replace: true,
-          });
-          toast.success(`Welcome Back ${response.data.foundUser.firstName}`);
-        } else {
-          throw new Error("Something went wrong! Please try again later");
+      if (validateEmail(user.email)) {
+        try {
+          const response = await loginService(user);
+          if (response.status === 200) {
+            if (remember) {
+              localStorage.setItem("token", response.data.encodedToken);
+              localStorage.setItem(
+                "user",
+                JSON.stringify(response.data.foundUser)
+              );
+            }
+            getNotesHandler(response.data.encodedToken, notesDispatch);
+            getArchivesHandler(response.data.encodedToken, archiveDispatch);
+            getTrashHandler(response.data.encodedToken, trashDispatch);
+            authDispatch({
+              type: "LOGIN",
+              payload: {
+                token: response.data.encodedToken,
+                user: response.data.foundUser,
+              },
+            });
+            navigate(location?.state?.from?.pathname || "/notes", {
+              replace: true,
+            });
+            toast.success(`Welcome Back ${response.data.foundUser.firstName}`);
+          } else {
+            throw new Error("Something went wrong! Please try again later");
+          }
+        } catch (error) {
+          toast.error(error.response.data.errors[0]);
         }
-      } catch (error) {
-        toast.error(error.response.data.errors[0]);
       }
     } else {
       toast.warning("Fields cannot be empty");
     }
   };
+
+  useEffect(() => {
+    if (token) navigate("/notes");
+  }, []);
 
   return (
     <main className="login-section">
@@ -106,14 +124,19 @@ const Login = () => {
               value={user.password}
               required
             />
-            <i
-              onClick={setShowPass}
-              className={`fas ${showPass ? "fa-eye-slash" : "fa-eye"}`}
-            ></i>
+            {showPass ? (
+              <FaEyeSlash className="eye-icon" onClick={setShowPass} />
+            ) : (
+              <FaEye className="eye-icon" onClick={setShowPass} />
+            )}
           </div>
           <div className="form-group check-remember">
             <div className="checkbox-group">
-              <input type="checkbox" id="checkbox-remember" />
+              <input
+                type="checkbox"
+                id="checkbox-remember"
+                checked={remember}
+              />
               <label htmlFor="checkbox-remember">Remember Me</label>
             </div>
             <Link to="/forgotpassword" className="form-link">
