@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { formatDate } from "../../backend/utils/authUtils";
-import { TextEditor } from "../index";
+import { TextEditor, LabelModal } from "../index";
 import { toast } from "react-toastify";
 import { useNotes, useAuth, useLabel } from "../../context/";
 import { addNoteHandler, editNoteHandler } from "../../functions/";
@@ -26,6 +26,8 @@ const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
       };
 
   const [newNote, setNewNote] = useState(data);
+
+  const [showLabelModal, setShowLabelModal] = useState(false);
 
   const {
     authState: { token },
@@ -60,10 +62,7 @@ const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
   };
 
   return (
-    <section
-      className="note-editor-wrapper  modal-active"
-      onClick={() => setShowCreateModal(false)}
-    >
+    <section className="note-editor-wrapper  modal-active">
       <section className="note-editor">
         <div className="note-editor-header">
           <h2 className="note-editor-title">
@@ -143,8 +142,18 @@ const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
           <button onClick={createNoteHandler} className="btn btn-primary">
             {editData ? "Update Note" : "Create Note"}
           </button>
+          <button
+            onClick={() => setShowLabelModal(true)}
+            className="btn btn-primary"
+          >
+            Add Label
+          </button>
         </div>
       </section>
+      <LabelModal
+        setShowLabelModal={setShowLabelModal}
+        showLabelModal={showLabelModal}
+      />
     </section>
   );
 };

@@ -30,10 +30,6 @@ const LabelModal = ({ setShowLabelModal, showLabelModal }) => {
   return (
     <section
       className={`label-backdrop ${showLabelModal ? "modal-active" : ""}`}
-      onClick={() => {
-        setShowLabelModal(false);
-        setNewLabel("");
-      }}
     >
       <section className="add-label-modal">
         <div className="modal-header">
