@@ -21,7 +21,7 @@ const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
         text: "",
         label: "",
         color: "White",
-        priority: "Default",
+        priority: "low",
         isPinned: false,
       };
 
@@ -114,7 +114,6 @@ const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
               value={newNote.priority}
               onChange={inputHandler}
             >
-              <option>Default</option>
               <option value="low">Low</option>
               <option value="high">High</option>
             </select>
