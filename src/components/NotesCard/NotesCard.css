@@ -18,7 +18,16 @@
 }
 
 .thumb-icon {
+  font-size: var(--font-size-4);
+  font-weight: font-weight(font-weight-3);
+}
+
+.note-icon {
   font-size: var(--font-size-5);
+}
+
+.note-icon:hover {
+  color: var(--primary-color);
 }
 
 .notes-card-title {

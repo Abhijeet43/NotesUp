@@ -14,6 +14,7 @@ import {
 } from "../../functions/";
 import "./Notes.css";
 import { useNotes, useAuth, useFilter } from "../../context";
+import { FaPlus } from "react-icons/fa";
 
 const Notes = () => {
   const [showFilterModal, setShowFilterModal] = useState(false);
@@ -63,10 +64,10 @@ const Notes = () => {
           />
           <div className="new-notes">
             <button
-              className="btn btn-primary no-max-width"
+              className="btn btn-primary no-max-width flex-align"
               onClick={() => setShowCreateModal(true)}
             >
-              <i className="fa-solid fa-plus margin-right"></i>
+              <FaPlus className="margin-right" />
               Add New Note
             </button>
             {showCreateModal ? (
