@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Trash.css";
 import { SideNav, NotesCard, Header } from "../../components";
-import { useAuth, useTrash } from "../../context/";
+import { useSideNav, useTrash } from "../../context/";
 
 const Trash = () => {
   const {
-    authState: { token },
-  } = useAuth();
-  const {
     trashState: { trash },
-    trashDispatch,
   } = useTrash();
+
+  const { setSideNavOpen } = useSideNav();
+
+  useEffect(() => {
+    setSideNavOpen(false);
+  }, []);
+
   return (
     <>
       <main className="main-section">
