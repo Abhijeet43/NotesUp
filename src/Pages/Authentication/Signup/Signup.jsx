@@ -10,6 +10,7 @@ import {
   validatePassword,
   confirmPasswordCheck,
 } from "../../../functions/";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Signup = () => {
   const [showPass, setShowPass] = useToggle(false);
@@ -122,10 +123,11 @@ const Signup = () => {
                 onChange={changeHandler}
                 required
               />
-              <i
-                className={`fas ${showPass ? "fa-eye-slash" : "fa-eye"}`}
-                onClick={setShowPass}
-              ></i>
+              {showPass ? (
+                <FaEyeSlash className="eye-icon" onClick={setShowPass} />
+              ) : (
+                <FaEye className="eye-icon" onClick={setShowPass} />
+              )}
             </div>
             <div className="form-group">
               <input
@@ -136,10 +138,12 @@ const Signup = () => {
                 onChange={changeHandler}
                 required
               />
-              <i
-                className={`fas ${showConfirmPass ? "fa-eye-slash" : "fa-eye"}`}
-                onClick={setShowConfirmPass}
-              ></i>
+
+              {showConfirmPass ? (
+                <FaEyeSlash className="eye-icon" onClick={setShowConfirmPass} />
+              ) : (
+                <FaEye className="eye-icon" onClick={setShowConfirmPass} />
+              )}
             </div>
             <div className="form-group">
               <span className="terms">

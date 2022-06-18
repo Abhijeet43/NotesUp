@@ -5,6 +5,7 @@ import { useToggle } from "../../../hooks/useToggle";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth, useNotes, useArchive, useTrash } from "../../../context/";
 import { loginService } from "../../../services/";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import {
   getNotesHandler,
   getArchivesHandler,
@@ -116,10 +117,11 @@ const Login = () => {
               value={user.password}
               required
             />
-            <i
-              onClick={setShowPass}
-              className={`fas ${showPass ? "fa-eye-slash" : "fa-eye"}`}
-            ></i>
+            {showPass ? (
+              <FaEyeSlash className="eye-icon" onClick={setShowPass} />
+            ) : (
+              <FaEye className="eye-icon" onClick={setShowPass} />
+            )}
           </div>
           <div className="form-group check-remember">
             <div className="checkbox-group">

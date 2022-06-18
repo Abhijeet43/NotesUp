@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useLabel } from "../../context/";
+import { FaTimes } from "react-icons/fa";
 import "./LabelModal.css";
 
 const LabelModal = ({ setShowLabelModal, showLabelModal }) => {
@@ -29,17 +30,21 @@ const LabelModal = ({ setShowLabelModal, showLabelModal }) => {
   return (
     <section
       className={`label-backdrop ${showLabelModal ? "modal-active" : ""}`}
+      onClick={() => {
+        setShowLabelModal(false);
+        setNewLabel("");
+      }}
     >
       <section className="add-label-modal">
         <div className="modal-header">
           <h3 className="modal-title">Add New Label</h3>
-          <i
-            className="fa-solid fa-xmark close-btn"
+          <FaTimes
+            className="close-btn"
             onClick={() => {
               setShowLabelModal(false);
               setNewLabel("");
             }}
-          ></i>
+          />
         </div>
         <input
           className="new-label-text"

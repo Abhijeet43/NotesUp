@@ -4,6 +4,7 @@ import { TextEditor } from "../index";
 import { toast } from "react-toastify";
 import { useNotes, useAuth, useLabel } from "../../context/";
 import { addNoteHandler, editNoteHandler } from "../../functions/";
+import { FaTimes } from "react-icons/fa";
 import "./NotesModal.css";
 
 const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
@@ -59,14 +60,17 @@ const NotesModal = ({ setShowCreateModal, editData, noteData }) => {
   };
 
   return (
-    <section className="note-editor-wrapper  modal-active">
+    <section
+      className="note-editor-wrapper  modal-active"
+      onClick={() => setShowCreateModal(false)}
+    >
       <section className="note-editor">
         <div className="note-editor-header">
           <h2 className="note-editor-title">
             {editData ? "Update Note" : "Create Note"}
           </h2>
           <button onClick={() => setShowCreateModal(false)}>
-            <i className="fa-solid fa-xmark close-btn"></i>
+            <FaTimes className="close-btn" />
           </button>
         </div>
         <div className="note-editor-content">
