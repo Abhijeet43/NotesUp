@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../authentication.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useToggle } from "../../../hooks/useToggle";
@@ -16,7 +16,10 @@ const Signup = () => {
   const [showPass, setShowPass] = useToggle(false);
   const [showConfirmPass, setShowConfirmPass] = useToggle(false);
 
-  const { authDispatch } = useAuth();
+  const {
+    authState: { token },
+    authDispatch,
+  } = useAuth();
 
   const navigate = useNavigate();
 
@@ -77,6 +80,10 @@ const Signup = () => {
       toast.error(error.response.data.errors[0]);
     }
   };
+
+  useEffect(() => {
+    if (token) navigate("/notes");
+  }, []);
 
   return (
     <>

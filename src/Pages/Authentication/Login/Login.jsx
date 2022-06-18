@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../authentication.css";
 import { toast } from "react-toastify";
 import { useToggle } from "../../../hooks/useToggle";
@@ -17,7 +17,10 @@ const Login = () => {
   const [showPass, setShowPass] = useToggle(false);
   const [remember, setRemember] = useToggle(false);
 
-  const { authDispatch } = useAuth();
+  const {
+    authState: { token },
+    authDispatch,
+  } = useAuth();
 
   const { notesDispatch } = useNotes();
 
@@ -92,6 +95,10 @@ const Login = () => {
       toast.warning("Fields cannot be empty");
     }
   };
+
+  useEffect(() => {
+    if (token) navigate("/notes");
+  }, []);
 
   return (
     <main className="login-section">
