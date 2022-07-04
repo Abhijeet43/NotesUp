@@ -134,14 +134,14 @@ const Login = () => {
             <div className="checkbox-group">
               <input
                 type="checkbox"
+                onChange={(e) =>
+                  e.target.checked ? setRemember(true) : setRemember(false)
+                }
                 id="checkbox-remember"
                 checked={remember}
               />
               <label htmlFor="checkbox-remember">Remember Me</label>
             </div>
-            <Link to="/forgotpassword" className="form-link">
-              Forgot Password?
-            </Link>
           </div>
           <div className="form-group">
             <button className="btn btn-primary" onClick={guestUserHandler}>

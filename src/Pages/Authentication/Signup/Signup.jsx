@@ -88,7 +88,7 @@ const Signup = () => {
   return (
     <>
       <main className="signup-section">
-        <section className="section-form">
+        <section className="section-form signup-form">
           <form action="" onSubmit={submitHandler}>
             <h1 className="form-title">Sign Up</h1>
             <div className="form-group">
@@ -151,18 +151,6 @@ const Signup = () => {
               ) : (
                 <FaEye className="eye-icon" onClick={setShowConfirmPass} />
               )}
-            </div>
-            <div className="form-group">
-              <span className="terms">
-                By creating an account you agree to our
-                <Link to="/privacy" className="form-link">
-                  Privacy Policy
-                </Link>
-                and
-                <Link to="/terms" className="form-link">
-                  Terms of Use
-                </Link>
-              </span>
             </div>
             <div className="form-group">
               <button type="submit" className="btn btn-primary">
